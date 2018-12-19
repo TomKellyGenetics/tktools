@@ -23,7 +23,7 @@
 \arguments{
 \item{n}{number of colours to generate (integer or numeric)}
 
-\item{col}{= NULL,colour,color scale of colours to interpolate}
+\item{col, colour, color}{scale of colours to interpolate}
 }
 \description{
 generate a colour scale for plotting scales with a variable number states.
