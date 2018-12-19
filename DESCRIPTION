@@ -1,11 +1,11 @@
 Package: tktools
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Package of personal utilities
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Tom Kelly
+Maintainer: Tom Kelly <tomkellygenetics@gmail.com>
+Description: Functions to reuse across projects
+License: GPL-3
 LazyData: TRUE
 Suggests: 
     testthat
