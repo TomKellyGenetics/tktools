@@ -51,12 +51,12 @@ To cite this package in publications use:
 
 A BibTeX entry for LaTeX users is
 
-  @Manual{,
-    title = {tktools: Package of Personal Utilities},
-    author = {S. Thomas Kelly},
-    year = {2018},
-    note = {R package version 0.1.0},
-    url = {https://github.com/TomKellyGenetics/tktools},
-  }
+      @Manual{,
+        title = {tktools: Package of Personal Utilities},
+        author = {S. Thomas Kelly},
+        year = {2018},
+        note = {R package version 0.1.0},
+        url = {https://github.com/TomKellyGenetics/tktools},
+      }
 
 
