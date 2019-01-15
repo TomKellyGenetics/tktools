@@ -1,0 +1,91 @@
+library("tktools")
+context("test string splitter")
+
+random_number <- function() as.character(floor(runif(1, min = 0 , max = 10)))
+strings <- lapply(letters[1:10], function(x) paste(random_number(), random_number(), x, random_number(), sep = "-"))
+
+test_that("extract each index", {
+  outs <- stringsplitter(strings, 1)
+  expect_length(outs, 10)
+  expect_length(outs[1], 1)
+  outs <- stringsplitter(strings, 1:3)
+  expect_length(outs, 10)
+  expect_equal(nchar(outs[1]), 5)
+  outs <- stringsplitter(strings, 1, split = "-")
+  expect_length(outs, 10)
+  expect_length(outs[1], 1)
+  outs <- stringsplitter(strings, 1:3, split = "-")
+  expect_length(outs, 10)
+  expect_equal(nchar(outs[1]), 5)
+})
+
+random_number <- function() as.character(floor(runif(1, min = 0 , max = 10)))
+strings <- lapply(letters[1:10], function(x) paste(random_number(), random_number(), x, random_number(), sep = ";"))
+
+
+test_that("extract with altered spacer", {
+  outs <- stringsplitter(strings, 1)
+  expect_length(outs, 10)
+  expect_length(outs[1], 1)
+  outs <- stringsplitter(strings, 1:3)
+  expect_length(outs, 10)
+  expect_length(outs[1], 1)
+  outs <- stringsplitter(strings, 1, split = "-")
+  expect_length(outs, 10)
+  expect_length(outs[1], 1)
+  outs <- stringsplitter(strings, 1:3, split = "-")
+  expect_length(outs, 10)
+  expect_length(outs[1], 1)
+  outs <- stringsplitter(strings, 1, split = ";")
+  expect_length(outs, 10)
+  expect_length(outs[1], 1)
+  outs <- stringsplitter(strings, 1:3, split = ";")
+  expect_length(outs, 10)
+  expect_equal(nchar(outs[1]), 5)
+})
+
+
+
+random_number <- function() as.character(floor(runif(1, min = 0 , max = 10)))
+strings <- lapply(letters[1:10], function(x) paste(random_number(), random_number(), x, random_number(), sep = "-"))
+
+test_that("extract each index", {
+  outs <- splitstrings(strings, 1)
+  expect_length(outs, 10)
+  expect_length(outs[1], 1)
+  outs <- splitstrings(strings, 1:3)
+  expect_length(outs, 10)
+  expect_equal(nchar(outs[1]), 5)
+  outs <- splitstrings(strings, 1, split = "-")
+  expect_length(outs, 10)
+  expect_length(outs[1], 1)
+  outs <- splitstrings(strings, 1:3, split = "-")
+  expect_length(outs, 10)
+  expect_equal(nchar(outs[1]), 5)
+})
+
+random_number <- function() as.character(floor(runif(1, min = 0 , max = 10)))
+strings <- lapply(letters[1:10], function(x) paste(random_number(), random_number(), x, random_number(), sep = ";"))
+
+
+test_that("extract with altered spacer", {
+  outs <- splitstrings(strings, 1)
+  expect_length(outs, 10)
+  expect_length(outs[1], 1)
+  outs <- splitstrings(strings, 1:3)
+  expect_length(outs, 10)
+  expect_length(outs[1], 1)
+  outs <- splitstrings(strings, 1, split = "-")
+  expect_length(outs, 10)
+  expect_length(outs[1], 1)
+  outs <- splitstrings(strings, 1:3, split = "-")
+  expect_length(outs, 10)
+  expect_length(outs[1], 1)
+  outs <- splitstrings(strings, 1, split = ";")
+  expect_length(outs, 10)
+  expect_length(outs[1], 1)
+  outs <- splitstrings(strings, 1:3, split = ";")
+  expect_length(outs, 10)
+  expect_equal(nchar(outs[1]), 5)
+})
+
