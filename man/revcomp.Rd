@@ -9,16 +9,16 @@
 \title{revcomp}
 \usage{
 \method{revcomp}{factor}(seq, upper.case = NULL, complement = TRUE,
-  reverse = TRUE)
+  reverse = TRUE, RNA.out = FALSE)
 
 \method{revcomp}{character}(seq, upper.case = NULL, complement = TRUE,
-  reverse = TRUE)
+  reverse = TRUE, RNA.out = FALSE)
 
 \method{revcomp}{list}(seq, upper.case = NULL, complement = TRUE,
-  reverse = TRUE)
+  reverse = TRUE, RNA.out = FALSE)
 
 \method{revcomp}{default}(seq, upper.case = NULL, complement = TRUE,
-  reverse = TRUE)
+  reverse = TRUE, RNA.out = FALSE)
 }
 \arguments{
 \item{seq}{string. A sequence of nucleotide bases (can handle ambiguous bases)}
@@ -28,6 +28,8 @@
 \item{complement}{logical. Whether to compute the complementary sequence (defaults to TRUE).}
 
 \item{reverse}{logical. Whether to reverse the order of the sequence (defaults to TRUE).}
+
+\item{RNA.out}{logical. Whether to return sequences as DNA (TRUE) with T or as RNA (FALSE) with U (defaults to FAlSE).}
 }
 \value{
 returns a string, vector, character, or list in the same class as the input sequences

@@ -55,6 +55,7 @@ stringsplitter <- splitstrings
 #' @param upper.case logical. Whether to force return of upper (TRUE) or lower (FALSE) case. Default to matching input case.
 #' @param complement logical. Whether to compute the complementary sequence (defaults to TRUE).
 #' @param reverse logical. Whether to reverse the order of the sequence (defaults to TRUE).
+#' @param RNA.out logical. Whether to return sequences as DNA (TRUE) with T or as RNA (FALSE) with U (defaults to FAlSE).
 #' @keywords sequence bases strings complement molecular-biology
 #' @importFrom seqinr comp
 #' @export
@@ -80,16 +81,16 @@ stringsplitter <- splitstrings
 #'
 #' @export
 #' @usage NULL
-revcomp <- function(seq, upper.case = NULL, complement = TRUE, reverse = TRUE) {
+revcomp <- function(seq, upper.case = NULL, complement = TRUE, reverse = TRUE, RNA.out = FALSE) {
   UseMethod("revcomp")
 }
 
 #' @rdname revcomp
 #' @export
 revcomp.factor <-
-  function(seq, upper.case = NULL, complement = TRUE, reverse = TRUE) {
+  function(seq, upper.case = NULL, complement = TRUE, reverse = TRUE, RNA.out = FALSE) {
     seq <- as.character(seq)
-    output <- revcomp(seq, upper.case = NULL, complement = TRUE, reverse = TRUE)
+    output <- revcomp(seq, upper.case = NULL, complement = TRUE, reverse = TRUE, RNA.out = FALSE)
     output <- factor(output, levels = levels(seq))
     return(output)
   }
@@ -97,11 +98,11 @@ revcomp.factor <-
 #' @rdname revcomp
 #' @export
 revcomp.character <-
-  function(seq, upper.case = NULL, complement = TRUE, reverse = TRUE) {
+  function(seq, upper.case = NULL, complement = TRUE, reverse = TRUE, RNA.out = FALSE) {
     if(length(seq) > 1){
-      output <- sapply(seq, revcomp.default, upper.case = NULL, complement = TRUE, reverse = TRUE)
+      output <- sapply(seq, revcomp.default, upper.case = NULL, complement = TRUE, reverse = TRUE, RNA.out = FALSE)
     } else {
-      output <- revcomp.default(seq, upper.case = NULL, complement = TRUE, reverse = TRUE)
+      output <- revcomp.default(seq, upper.case = NULL, complement = TRUE, reverse = TRUE, RNA.out = FALSE)
     }
     return(output)
   }
@@ -109,15 +110,15 @@ revcomp.character <-
 #' @rdname revcomp
 #' @export
 revcomp.list <-
-  function(seq, upper.case = NULL, complement = TRUE, reverse = TRUE) {
-    output <- lapply(seq, revcomp, upper.case = NULL, complement = TRUE, reverse = TRUE)
+  function(seq, upper.case = NULL, complement = TRUE, reverse = TRUE, RNA.out = FALSE) {
+    output <- lapply(seq, revcomp, upper.case = NULL, complement = TRUE, reverse = TRUE, RNA.out = FALSE)
     return(output)
   }
 
 #' @rdname revcomp
 #' @export
 revcomp.default <-
-  function(seq, upper.case = NULL, complement = TRUE, reverse = TRUE) {
+  function(seq, upper.case = NULL, complement = TRUE, reverse = TRUE, RNA.out = FALSE) {
     input <- unlist(strsplit(seq, split = ""))
     # detect case
     if(seq == toupper(seq)){
@@ -135,6 +136,10 @@ revcomp.default <-
         }
       }))
     }
+    # detect RNA or DNA
+    if("u" %in% tolower(input)){
+      input[grep("u", tolower(input))] <- ifelse(upper.case[grep("u", tolower(input))], "T", "t")
+    }
     #compute complementary sequence
     if(complement == TRUE){
       seq.comp <- comp(input)
@@ -147,6 +152,10 @@ revcomp.default <-
       upper.case <- rev(upper.case)
     } else {
       seq.revcomp <- seq.comp
+    }
+    #RNA output
+    if(RNA.out){
+      seq.revcomp <- gsub("t", "u", seq.revcomp)
     }
     #output format
     if(upper.case == TRUE && length(upper.case) == 1){
