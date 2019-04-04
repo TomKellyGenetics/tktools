@@ -138,4 +138,3 @@ plot <- function(..., legend = NULL, title = NULL, mtext = NULL, facet = NULL){
   #  graphics::plot(...)
   #}
 }
-
