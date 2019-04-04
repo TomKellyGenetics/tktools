@@ -5,14 +5,14 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tktools)](https://cran.r-project.org/package=tktools)
 [![Travis Build Status](https://travis-ci.org/TomKellyGenetics/tktools.svg?branch=master)](https://travis-ci.org/TomKellyGenetics/tktools)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/TomKellyGenetics/vioplot?branch=master&svg=true)](https://ci.appveyor.com/project/TomKellyGenetics/tktools)
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Project Status: WIP – Some functions have been added and documented but more will continue to be developed.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![codecov](https://codecov.io/gh/TomKellyGenetics/tktools/branch/master/graph/badge.svg)](https://codecov.io/gh/TomKellyGenetics/tktools)
 
 ### Tom Kelly's R tools
 
 Personal Repository of miscellaneous functions, tools, tweaks, aliases, and settings. R functions documented in package. 
 
-This package contains various utilities to manipute (genomic) data and tweak plots in R. Functions will be added as needed for various projects if they could be used more widely. This repository is mainly intended for personal use (but issues and PRs are still welcome) so functions may be poorly documented or lack unit tests. Many are a work in progress.
+This package contains various utilities to manipute (genomic) data and tweak plots in R. Functions will be added as needed for various projects if they could be used more widely. This repository is mainly intended for personal use (but issues and PRs are still welcome) so functions may be poorly documented or lack unit tests. Many are a work in progress. There is no plan to submit this to CRAN or other package repositories.
 
 ## Installation
 
