@@ -8,11 +8,11 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![codecov](https://codecov.io/gh/TomKellyGenetics/tktools/branch/master/graph/badge.svg)](https://codecov.io/gh/TomKellyGenetics/tktools)
 
-### Violin Plots in R
+### Tom Kelly's R tools
 
-Personal Repository of functions, tools, tweaks, aliases, and settings. R functions documented in package. 
+Personal Repository of miscellaneous functions, tools, tweaks, aliases, and settings. R functions documented in package. 
 
-This package contains various utilities to manipute data and tweak plots in R.
+This package contains various utilities to manipute (genomic) data and tweak plots in R. Functions will be added as needed for various projects if they could be used more widely. This repository is mainly intended for personal use (but issues and PRs are still welcome) so functions may be poorly documented or lack unit tests. Many are a work in progress.
 
 ## Installation
 

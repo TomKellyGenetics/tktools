@@ -1,7 +1,7 @@
 Package: tktools
 Type: Package
 Title: Package of personal utilities
-Version: 0.1.0
+Version: 0.2.0
 Author: Tom Kelly
 Maintainer: Tom Kelly <tomkellygenetics@gmail.com>
 Description: Functions to reuse across projects
