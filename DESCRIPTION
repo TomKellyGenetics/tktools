@@ -7,6 +7,10 @@ Maintainer: Tom Kelly <tomkellygenetics@gmail.com>
 Description: Functions to reuse across projects
 License: GPL-3
 LazyData: TRUE
+Imports:
+    seqinr
 Suggests: 
-    testthat
+    testthat,
+    RColorBrewer
 RoxygenNote: 6.1.1
+
