@@ -143,6 +143,7 @@ revcomp.default <-
     #compute complementary sequence
     if(complement == TRUE){
       seq.comp <- comp(input)
+      seq.comp[is.na(seq.comp)] <- input[is.na(seq.comp)]
     } else {
       seq.comp <- input
     }
@@ -169,6 +170,6 @@ revcomp.default <-
     return(output)
   }
 
+## convert degrees F to C
 
-
-
+## convert miles to km
