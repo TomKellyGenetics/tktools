@@ -14,7 +14,6 @@
 find gene ids from annotation data
 }
 \examples{
-
 #load data to identify genes from IDs
 if(!require("org.Hs.eg.db")){
   install.packages("BiocManager")
