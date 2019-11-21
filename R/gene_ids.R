@@ -9,7 +9,87 @@
 #' @seealso find_symbol
 #' @export
 #' @examples
-
+#'
+#' #load data to identify genes from IDs
+#' if(!require("org.Hs.eg.db")){
+#'   install.packages("BiocManager")
+#'   BiocManager::install("org.Hs.eg.db")
+#'   library("org.Hs.eg.db")
+#' }
+#' annotation <- as.list(org.Hs.egSYMBOL)
+#' gene <- "7157"
+#' # Entrez ID from human symbol
+#' find_symbol(gene, annotation)
+#'
+#' #Ensembl ID from human symbol
+#' annotation <-  as.list(org.Hs.egSYMBOL)
+#' names(annotation) <- as.list(org.Hs.egENSEMBL)
+#' gene <- "ENSG00000141510"
+#' find_symbol(gene, annotation)
+#'
+#' #load data to identify genes from IDs
+#' if(!require("org.Mm.eg.db")){
+#'   install.packages("BiocManager")
+#'   BiocManager::install("org.Mm.eg.db")
+#'   library("org.Mm.eg.db")
+#' }
+#' annotation <- as.list(org.Mm.egSYMBOL)
+#' gene <- "12494"
+#' # Entrez ID from mouse symbol
+#' find_symbol(gene, annotation)
+#'
+#' #Ensembl ID from mouse symbol
+#' annotation <- as.list(org.Mm.egSYMBOL)
+#' names(annotation) <- as.list(org.Mm.egENSEMBL)
+#' gene <- "ENSMUSG00000029084"
+#' find_symbol(gene, annotation)
+#'
+#' #load data to identify genes from IDs
+#' if(!require("org.Hs.eg.db")){
+#'   install.packages("BiocManager")
+#'   BiocManager::install("org.Hs.eg.db")
+#'   library("org.Hs.eg.db")
+#' }
+#' annotation <- as.list(org.Hs.egSYMBOL)
+#' gene <- "TP53"
+#' # Entrez ID from human symbol
+#' find_id(gene, annotation)
+#'
+#' #Ensembl ID from human symbol
+#' annotation <- as.list(org.Hs.egSYMBOL)
+#' names(annotation) <- as.list(org.Hs.egENSEMBL)
+#' gene <- "TP53"
+#' find_id(gene, annotation)
+#'
+#' #load data to identify genes from IDs
+#' if(!require("org.Mm.eg.db")){
+#'   install.packages("BiocManager")
+#'   BiocManager::install("org.Mm.eg.db")
+#'   library("org.Mm.eg.db")
+#' }
+#' annotation <- as.list(org.Mm.egSYMBOL)
+#' gene <- "Cd38"
+#' # Entrez ID from mouse symbol
+#' find_id(gene, annotation)
+#'
+#' #Ensembl ID from mouse symbol
+#' annotation <- as.list(org.Mm.egSYMBOL)
+#' names(annotation) <- as.list(org.Mm.egENSEMBL)
+#' gene <- "Cd38"
+#' find_id(gene, annotation)
+#'
+#' #load data to identify genes from IDs
+#' if(!require("org.At.tair.db")){
+#'   install.packages("BiocManager")
+#'   BiocManager::install("org.At.tair.db")
+#'   library("org.At.tair.db")
+#' }
+#' annotation <- as.list(org.At.tairSYMBOL)
+#' gene <- "SCR"
+#' find_id(gene, annotation)
+#'
+#' genes <- c("WOX5", "WUS")
+#' sapply(genes, find_id, annotation)
 #'
 #' @export
 #' @usage NULL
