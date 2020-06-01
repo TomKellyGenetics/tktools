@@ -8,17 +8,37 @@
 \alias{revcomp.default}
 \title{revcomp}
 \usage{
-\method{revcomp}{factor}(seq, upper.case = NULL, complement = TRUE,
-  reverse = TRUE, RNA.out = FALSE)
+\method{revcomp}{factor}(
+  seq,
+  upper.case = NULL,
+  complement = TRUE,
+  reverse = TRUE,
+  RNA.out = FALSE
+)
 
-\method{revcomp}{character}(seq, upper.case = NULL, complement = TRUE,
-  reverse = TRUE, RNA.out = FALSE)
+\method{revcomp}{character}(
+  seq,
+  upper.case = NULL,
+  complement = TRUE,
+  reverse = TRUE,
+  RNA.out = FALSE
+)
 
-\method{revcomp}{list}(seq, upper.case = NULL, complement = TRUE,
-  reverse = TRUE, RNA.out = FALSE)
+\method{revcomp}{list}(
+  seq,
+  upper.case = NULL,
+  complement = TRUE,
+  reverse = TRUE,
+  RNA.out = FALSE
+)
 
-\method{revcomp}{default}(seq, upper.case = NULL, complement = TRUE,
-  reverse = TRUE, RNA.out = FALSE)
+\method{revcomp}{default}(
+  seq,
+  upper.case = NULL,
+  complement = TRUE,
+  reverse = TRUE,
+  RNA.out = FALSE
+)
 }
 \arguments{
 \item{seq}{string. A sequence of nucleotide bases (can handle ambiguous bases)}

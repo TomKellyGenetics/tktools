@@ -1,13 +1,10 @@
-#' @title plot_wrapper
-#' @name plot_wrapper
-#' @rdname plot_wrapper
+#' @title gg_colour_hue
+#' @name gg_colour_hue
+#' @rdname gg_colour_hue
 #'
-#' @description  plot with legend and title, mtext added
+#' @description  emulate colour scale for ggplots
 #'
-#' @param ... parameters to pass to plot
-#' @param legend plot legend
-#' @param title plot title
-#' @param mtext plot mtext to add
+#' @param n the number of colors (≥ 1) to be in the palette.
 #' @keywords plot graphics annotation title legend
 #' @importFrom graphics plot
 #' @export
@@ -23,17 +20,25 @@
 #'      legend = legend("topleft", title = "colours", legend = 1:n, col = colourscale(n, brewer.pal(11, "Set3")), pch = 20),
 #'      main = "title", xlab = "x-axis", ylab = "y-axis")
 #'
-#' @export
 #' @usage NULL
+#' @export
 
-plot <- function(..., legend = NULL, title = NULL, mtext = NULL, facet = NULL){
-  graphics::plot(...)
-  if(!is.null(legend)) legend
-  if(!is.null(mtext))  mtext
-  # if(!is.null(title)){
-  #   title
-  #   graphics::plot(..., main = NULL, xlab = " ", ylab = " ")
-  # }  else {
-  #  graphics::plot(...)
-  #}
+gg_colour_hue <- function(n){
+  if(round(n) == n){
+    n <- as.integer(n)
+  } else {
+    stop("n must be an integer")
+  }
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
 }
+
+
+#' @rdname gg_colour_hue
+#' @export
+gg_color_hue <- function(n, col = NULL, ...) {
+  gg_colour_hue
+}
+
+
+

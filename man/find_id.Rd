@@ -31,6 +31,11 @@ names(annotation) <- as.list(org.Hs.egENSEMBL)
 gene <- "ENSG00000141510"
 find_symbol(gene, annotation)
 
+#Full gene name from Ensembl ID
+annotation <- as.list(org.Hs.egGENENAME)
+names(annotation) <- as.list(org.Hs.egENSEMBL)
+find_symbol("ENSG00000171428", annotation)
+
 #load data to identify genes from IDs
 if(!require("org.Mm.eg.db")){
   install.packages("BiocManager")
