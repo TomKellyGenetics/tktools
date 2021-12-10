@@ -10,9 +10,7 @@
 #' @param mtext plot mtext to add
 #' @keywords plot graphics annotation title legend
 #' @importFrom graphics plot
-#' @export
 #' @examples
-#'
 #' # example plot
 #' n <- 5
 #' x_mean <- rnorm(n, 1000, 500)
@@ -23,7 +21,7 @@
 #'      legend = legend("topleft", title = "colours", legend = 1:n, col = colourscale(n, brewer.pal(11, "Set3")), pch = 20),
 #'      main = "title", xlab = "x-axis", ylab = "y-axis")
 #'
-#' @export
+#' //@export
 #' @usage NULL
 
 plot <- function(..., legend = NULL, title = NULL, mtext = NULL, facet = NULL){
