@@ -71,11 +71,8 @@ levels is shown, and the less frequent levels are summarized in "(Others)"
 }
 \examples{
 super_summary(attenu, digits = 4) #-> super_summary.data.frame(...), default precision
+
 super_summary(attenu $ station, maxsum = 20) #-> super_summary.factor(...)
-lst <- unclass(attenu$station) > 20 # logical with NAs
-## super_summary.default() for logicals -- different from *.factor:
-super_summary(lst)
-super_summary(as.factor(lst))
 
 }
 \references{

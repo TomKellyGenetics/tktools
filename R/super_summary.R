@@ -48,13 +48,9 @@
 #' @keywords super_summary statistics
 #' @examples
 #' super_summary(attenu, digits = 4) #-> super_summary.data.frame(...), default precision
-#' super_summary(attenu $ station, maxsum = 20) #-> super_summary.factor(...)
-#' lst <- unclass(attenu$station) > 20 # logical with NAs
-#' ## super_summary.default() for logicals -- different from *.factor:
-#' super_summary(lst)
-#' super_summary(as.factor(lst))
 #'
-#' @export
+#' super_summary(attenu $ station, maxsum = 20) #-> super_summary.factor(...)
+#'
 #' @usage super_summary(object, ...)
 #'
 #' ## Default S3 method:
@@ -73,13 +69,16 @@
 #' format(x, digits = max(3L, getOption("digits") - 3L), ...)
 #' ## S3 method for class 'summaryDefault'
 #' print(x, digits = max(3L, getOption("digits") - 3L), ...)
+#'
+#' @export
 
 super_summary <- function(x, ...) {
   UseMethod("super_summary")
 }
 
+#' @exportS3method
 
-super_summary.default <- function(object, digits = max(3, getOption("digits")-3)){
+super_summary.default <- function(object, maxsum = 7, digits = max(3, getOption("digits")-3)){
   object <- na.omit(object)
   num_low_outliers <- length(object[object < mean(object, na.rm = TRUE) - 3 * sd(object, na.rm = TRUE)])
   num_high_outliers <- length(object[object > mean(object, na.rm = TRUE) + 3 * sd(object, na.rm = TRUE)])
@@ -94,7 +93,156 @@ super_summary.default <- function(object, digits = max(3, getOption("digits")-3)
   mylist
 }
 
+#' @exportS3method
 
+super_summary.factor <- function (object,  maxsum = 100L,
+                                  digits = max(3, getOption("digits")-3),
+                                  ...){
+  nas <- is.na(object)
+  ll <- levels(object)
+  if (ana <- any(nas))
+    maxsum <- maxsum - 1L
+  tbl <- table(object)
+  tt <- c(tbl)
+  names(tt) <- dimnames(tbl)[[1L]]
+  if (length(ll) > maxsum) {
+    drop <- maxsum:length(ll)
+    o <- sort.list(tt, decreasing = TRUE)
+    tt <- c(tt[o[-drop]], `(Other)` = sum(tt[o[drop]]))
+  }
+  if (ana)
+    c(tt, `NA's` = sum(nas))
+  else tt
+}
+
+#' @exportS3method
+
+super_summary.list <- function (object, ...){
+  super_summary.data.frame(as.data.frame.matrix(object), ...)
+}
+
+#' @exportS3method
+
+super_summary.matrix <- function (object, ...){
+  super_summary.data.frame(as.data.frame(object), super_summary, ...)
+}
+
+#' @exportS3method
+
+super_summary.data.frame <- function (object, maxsum = 7L,
+                                      digits = max(3L, getOption("digits") - 3L)
+                                      , ...){
+  ncw <- function(x) {
+    z <- nchar(x, type = "w", allowNA = TRUE)
+    if (any(na <- is.na(z))) {
+      z[na] <- nchar(encodeString(z[na]), "b")
+    }
+    z
+  }
+  z <- lapply(X = as.list(object), FUN = summary, maxsum = maxsum,
+              digits = 12L, ...)
+  nv <- length(object)
+  nm <- names(object)
+  lw <- numeric(nv)
+  nr <- if (nv)
+    max(vapply(z, function(x) NROW(x) + !is.null(attr(x,
+                                                      "NAs")), integer(1)))
+  else 0
+  for (i in seq_len(nv)) {
+    sms <- z[[i]]
+    if (is.matrix(sms)) {
+      cn <- paste(nm[i], gsub("^ +", "", colnames(sms),
+                              useBytes = TRUE), sep = ".")
+      tmp <- format(sms)
+      if (nrow(sms) < nr)
+        tmp <- rbind(tmp, matrix("", nr - nrow(sms),
+                                 ncol(sms)))
+      sms <- apply(tmp, 1L, function(x) paste(x, collapse = "  "))
+      wid <- sapply(tmp[1L, ], nchar, type = "w")
+      blanks <- paste(character(max(wid)), collapse = " ")
+      wcn <- ncw(cn)
+      pad0 <- floor((wid - wcn)/2)
+      pad1 <- wid - wcn - pad0
+      cn <- paste0(substring(blanks, 1L, pad0), cn, substring(blanks,
+                                                              1L, pad1))
+      nm[i] <- paste(cn, collapse = "  ")
+    }
+    else {
+      sms <- format(sms, digits = digits)
+      lbs <- format(names(sms))
+      sms <- paste0(lbs, ":", sms, "  ")
+      lw[i] <- ncw(lbs[1L])
+      length(sms) <- nr
+    }
+    z[[i]] <- sms
+  }
+  if (nv) {
+    z <- unlist(z, use.names = TRUE)
+    dim(z) <- c(nr, nv)
+    if (anyNA(lw))
+      warning("probably wrong encoding in names(.) of column ",
+              paste(which(is.na(lw)), collapse = ", "))
+    blanks <- paste(character(max(lw, na.rm = TRUE) + 2L),
+                    collapse = " ")
+    pad <- floor(lw - ncw(nm)/2)
+    nm <- paste0(substring(blanks, 1, pad), nm)
+    dimnames(z) <- list(rep.int("", nr), nm)
+  }
+  else {
+    z <- character()
+    dim(z) <- c(nr, nv)
+  }
+  modes <- sapply(object, calculate_mode)
+  modes <- signif(modes, digits = digits)
+  modes <- gsub("^", "Mode   : ", modes)
+  z <- rbind(z, modes)
+  num_low_outliers <- sapply(object, function(element){
+    element <- as.numeric(element)
+    length(element[element < mean(element, na.rm = TRUE) - 3 * sd(element, na.rm = TRUE)])
+  })
+  num_low_outliers <- gsub("^", "ExtLow : ",  as.character(num_low_outliers))
+  z <- rbind(z, num_low_outliers)
+  num_high_outliers <- sapply(object, function(element){
+    element <- as.numeric(element)
+    length(element[element > mean(element, na.rm = TRUE) + 3 * sd(element, na.rm = TRUE)])
+  })
+  num_high_outliers <- gsub("^", "ExtHigh: ",  num_high_outliers)
+  z <- rbind(z, num_high_outliers)
+  rownames(z) <- rep("", nrow(z))
+
+  attr(z, "class") <- c("table")
+  z
+}
+
+
+#' @title Calculate Mode
+#' @name calculate_mode
+#' @rdname calculate_mode
+#' @encoding UTF-8
+#'
+#' @description calculate_mode is a generic function to compute the most
+#' abundant element in a list.
+#'
+#' @param x An R object. Currently there are methods for numeric/logical vectors
+#'  and date, date-time and time interval objects. Complex vectors are allowed for trim = 0, only.
+#' @param na.rm	a logical evaluating to TRUE or FALSE indicating whether NA
+#' values should be stripped before the computation proceeds.
+#' @param ...	further arguments passed to or from other methods.
+#'
+#' @returns the most frequent value.
+#'
+#' @references https://stackoverflow.com/a/8189441
+#'
+#' @seealso [mean()] [median()] [sd()] [summary()]
+#'
+#' @keywords super_summary statistics
+#'
+#' @usage calculate_mode(x, ...)
+#'
+#' ## Default S3 method:
+#' calculate_mode(x, na.rm = FALSE, ...)
+
+#' @export
 calculate_mode <- function(x, na.rm = FALSE) {
   if(na.rm){
     x = x[!is.na(x)]
